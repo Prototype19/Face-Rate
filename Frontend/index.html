@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Face Rate</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <div class="title">Face Rate</div>
+
+    <section class="uploader">
+        <div class="preview-container empty-state">
+            <h2 class="uploader_title">Add Your Image</h2>
+            <img id="preview" class="preview-img" alt="Image preview" src="data:image/png;base64,..." />
+        </div>
+
+        <div class="rating-section">
+            <h2 class="rating-full-Text">Photo Score: <span class="rating">Unknown</span></h2>
+        </div>
+
+        <form action="/upload" method="POST" enctype="multipart/form-data" class="uploader_form">
+            <input type="file" name="photo" id="file" class="uploader_input" accept="image/*" required>
+            <label for="file" class="uploader_label">Choose Image</label>
+            <button class="uploader_submit" type="submit">Rate</button>
+        </form>
+    </section>
+</body>
+</html>
