@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const previewImg = document.getElementById('preview');
   const previewContainer = document.querySelector('.preview-container');
   const title = document.querySelector('.uploader_title');
+  const ratingSpan = document.querySelector('.rating');
 
   fileInput.addEventListener('change', handleFileChange);
 
@@ -40,6 +41,31 @@ document.addEventListener('DOMContentLoaded', () => {
     reader.readAsDataURL(file);
   }
 
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('photo', file);
+
+    try {
+      const response = await fetch('/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) throw new Error('Request failed');
+
+      const data = await response.json();
+      ratingSpan.textContent = Number(data.rating).toFixed(2);
+    } catch (err) {
+      console.error(err);
+      alert('Unable to rate the photo.');
+    }
+  });
+
   function resetPreview() {
     previewImg.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAQAAgAB9HF5pQAAAABJRU5ErkJggg==';
     title.style.display = 'block';
@@ -47,5 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Remove upload state classes and add empty state
     previewContainer.classList.remove('has-image');
     previewContainer.classList.add('empty-state');
+    ratingSpan.textContent = 'Unknown'
   }
 });
