@@ -1,24 +1,19 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
+from .utils import predict, load_model
 
-from .utils import predict 
+# loads the model
+model = load_model()
 
 app = FastAPI(title="Face Rate")
-
-# Allow requests from any origin so the frontend can talk to the API
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 
 @app.get("/")
 async def health():
     return {"status": "good"}
 
+@app.info("/info")
+async def info():
+    return {"name": "face-rate", "description": "Rate API images of faces."}
 
 @app.post("/upload")
 async def upload(photo: UploadFile = File(...)):

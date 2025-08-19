@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const previewContainer = document.querySelector('.preview-container');
   const title = document.querySelector('.uploader_title');
   const ratingSpan = document.querySelector('.rating');
+  const form = document.querySelector('.uploader_form');
+
 
   fileInput.addEventListener('change', handleFileChange);
 
@@ -11,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const file = this.files[0];
 
     if (!file) {
-      // No file selected - reset to original state
       resetPreview();
       return;
     }
@@ -28,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
       previewImg.src = e.target.result;
       title.style.display = 'none';
       
-      // Add classadd('has-image');
       previewContainer.classList.remove('empty-state');
+      previewContainer.classList.add('has-image');
     };
 
     reader.onerror = () => {
@@ -44,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    const file = fileInput.files[0];
+    const file = previewImg.src;
     if (!file) return;
 
     const formData = new FormData();
