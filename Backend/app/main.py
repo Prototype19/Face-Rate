@@ -17,10 +17,9 @@ async def info():
 
 @app.post("/upload")
 async def upload(photo: UploadFile = File(...)):
-    """Receive an image file and return the model's rating."""
     if not (photo.content_type and photo.content_type.startswith("image/")):
         raise HTTPException(status_code=400, detail="File must be an image.")
 
     img_bytes = await photo.read()
-    rating = predict(img_bytes)
+    rating = predict(img_bytes, model)
     return {"rating": rating}

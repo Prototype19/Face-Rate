@@ -38,17 +38,17 @@ preprocess = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
-# Create a model
-model = load_model()
 
 # Convert image file into tensor
 def bytes_to_tensor(data: bytes) -> torch.Tensor:
     img = Image.open(BytesIO(data)).convert("RGB")
     return preprocess(img).unsqueeze(0).to(DEVICE)
 
-# Prediction function
+
+
 @torch.inference_mode()
-def predict(img_bytes: bytes) -> dict:
+def predict(img_bytes: bytes, model: torch.nn.Module) -> dict:
+    model.eval()
     x = bytes_to_tensor(img_bytes)
     prediction = model(x).item()
     return float(prediction)
