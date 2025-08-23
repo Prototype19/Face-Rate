@@ -1,8 +1,8 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from .utils import predict, load_model
+from .utils import predict, create_and_load_model
 
 # loads the model
-model = load_model()
+model = create_and_load_model()
 
 app = FastAPI(title="Face Rate")
 
@@ -11,7 +11,7 @@ app = FastAPI(title="Face Rate")
 async def health():
     return {"status": "good"}
 
-@app.info("/info")
+@app.get("/info")
 async def info():
     return {"name": "face-rate", "description": "Rate API images of faces."}
 
@@ -22,4 +22,5 @@ async def upload(photo: UploadFile = File(...)):
 
     img_bytes = await photo.read()
     rating = predict(img_bytes, model)
+
     return {"rating": rating}

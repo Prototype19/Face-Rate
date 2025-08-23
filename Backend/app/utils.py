@@ -11,23 +11,16 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 
-# Functions to create a model with the correct architecture
-def create_model():
+# Create base model and load pretrained model onto it
+def create_and_load_model(model_path: str = "models/final_model.pth"):
     model = BeautyModelV2()
-
     model.name = "BeautyModelV2"
     print(f"[INFO] Created new {model.name} model.")
-    return model
-
-
-
-# Load the model
-def load_model(model_path: str = "models/final_model.pth"):
-    model = create_model()
+    
     if os.path.exists(model_path):
         model.load_state_dict(torch.load(model_path, weights_only=True))
-    model.eval()
-    return model.to(DEVICE)
+
+    return model.to(DEVICE).eval()
 
 # Preprocessing transformation pipeline
 preprocess = transforms.Compose([
@@ -38,17 +31,9 @@ preprocess = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
-
-# Convert image file into tensor
-def bytes_to_tensor(data: bytes) -> torch.Tensor:
-    img = Image.open(BytesIO(data)).convert("RGB")
-    return preprocess(img).unsqueeze(0).to(DEVICE)
-
-
-
+# Rating function 
 @torch.inference_mode()
-def predict(img_bytes: bytes, model: torch.nn.Module) -> dict:
-    model.eval()
-    x = bytes_to_tensor(img_bytes)
-    prediction = model(x).item()
-    return float(prediction)
+def predict(img_bytes: bytes, model: torch.nn.Module) -> float:
+    img = Image.open(BytesIO(img_bytes)).convert("RGB")
+    tensor = preprocess(img).unsqueeze(0).to(DEVICE)
+    return float(model(tensor).item())
