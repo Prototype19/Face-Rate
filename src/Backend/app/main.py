@@ -1,13 +1,25 @@
+from pathlib import Path
 from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from .utils import predict, create_and_load_model
 
 # loads the model
 model = create_and_load_model()
 
+BASE_DIR = Path(__file__).resolve().parents[2]
+FRONTEND_DIR = BASE_DIR / "Frontend"
+
 app = FastAPI(title="Face Rate")
+app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 
 
 @app.get("/")
+async def index():
+    return FileResponse(FRONTEND_DIR / "index.html")
+
+
+@app.get("/health")
 async def health():
     return {"status": "good"}
 

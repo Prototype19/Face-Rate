@@ -13,5 +13,8 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 # add python code
 COPY ./src/ /code/src/
 
+# expose the application port
+EXPOSE 80
+
 # specify default commands
-CMD ["fastapi", "run", "src/Backend/app/main.py", "--port", "80"]
+CMD ["uvicorn", "src.Backend.app.main:app", "--host", "0.0.0.0", "--port", "80"]
