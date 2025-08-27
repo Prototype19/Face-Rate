@@ -19,7 +19,13 @@ def create_and_load_model(model_path: str = "src/Backend/app/models/final_model.
     
     if not os.path.exists(model_path):
         raise FileNotFoundError(f"Model weights not found at {model_path}")
-    model.load_state_dict(torch.load(model_path, weights_only=True))
+    
+    state_dict = torch.load(
+        model_path,
+        map_location=DEVICE,
+        weights_only=True,
+    )
+    model.load_state_dict(state_dict)
 
     return model.to(DEVICE).eval()
 
