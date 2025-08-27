@@ -17,8 +17,9 @@ def create_and_load_model(model_path: str = "models/final_model.pth"):
     model.name = "BeautyModelV2"
     print(f"[INFO] Created new {model.name} model.")
     
-    if os.path.exists(model_path):
-        model.load_state_dict(torch.load(model_path, weights_only=True))
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"Model weights not found at {model_path}")
+    model.load_state_dict(torch.load(model_path, weights_only=True))
 
     return model.to(DEVICE).eval()
 
