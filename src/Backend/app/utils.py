@@ -12,7 +12,7 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 # Create base model and load pretrained model onto it
-def create_and_load_model(model_path: str = "models/final_model.pth"):
+def create_and_load_model(model_path: str = "src/Backend/app/models/final_model.pth"):
     model = BeautyModelV2()
     model.name = "BeautyModelV2"
     print(f"[INFO] Created new {model.name} model.")
