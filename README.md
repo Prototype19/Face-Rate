@@ -3,16 +3,34 @@
 </h1>
 
 <p align="center">
-The Face Rate website gives the user a rating from 1 to 5 of any image of faces they upload using an homebrewed AI model. The purpose of this site was to apply the knowledge I gained about PyTorch in a more realworld setting. I created and deploy a classification AI model PyTorch model. I used Google Colab to create and train the model itself (You can find the ipynb file in this repo). Specfically I use the SCUT-FBP500 V2 Dataset from the Kaggle website. For the frontend I used the classic html, css, javascript combo (using AI to help fill any gaps in knowledge I had in frontend). I am current hosting the website
-<p>
+  Face-Rate is a web application that predicts a facial attractiveness score (1–5) for uploaded images using a custom-trained PyTorch model.  
+</p>
 
+---
+
+## Overview
+This project demonstrates end-to-end deployment of a deep learning model in a real-world web environment:  
+
+- **Model Development**: Built and trained a convolutional neural network in **PyTorch** using the [SCUT-FBP500 V2 dataset](https://www.kaggle.com/datasets/). Training and experimentation were conducted in Google Colab (the notebook is included in this repository).  
+- **Web Application**: Designed a lightweight frontend with **HTML**, **CSS**, and **JavaScript**.  
+- **Deployment**: Containerized the application with **Docker** and deployed it on **AWS Elastic Container Service (ECS)** for scalable hosting.  
+
+---
+
+## Webpage Preview
 <p align="center">
-<img width="390" height="500" alt="Screenshot 2025-08-27 202228" src="https://github.com/user-attachments/assets/66dd2188-47d1-439c-8b2b-164440fd9cc7" />
-</p>
-  
-<p>
-  Try out the website here:
-  http://18.188.152.65/
-  (Use on a pc; Website not designed for mobile)
+  <img width="390" height="500" alt="Face-Rate Screenshot" src="https://github.com/user-attachments/assets/66dd2188-47d1-439c-8b2b-164440fd9cc7" />
 </p>
 
+---
+
+## Live Demo
+🔗 Try it out here: [Face-Rate Web App](http://18.188.152.65/)  
+*(Best viewed on desktop; currently not optimized for mobile.)*
+
+---
+
+## Repository Contents
+- `model_training.ipynb` – Colab notebook for model training and evaluation  
+- `frontend/` – Website files (HTML, CSS, JS)  
+- `backend/` – FastAPI/Docker deployment logic  
