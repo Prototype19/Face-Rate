@@ -11,7 +11,7 @@
 ## Overview
 This project demonstrates end-to-end deployment of a deep learning model in a real-world web environment:  
 
-- **Model Development**: Built and trained a convolutional neural network in **PyTorch** using the [SCUT-FBP500 V2 dataset](https://www.kaggle.com/datasets/). Training and experimentation were conducted in Google Colab (the notebook is included in this repository).  
+- **Model Development**: Built and trained a convolutional neural network in **PyTorch** using the [SCUT-FBP500 V2 dataset](https://www.kaggle.com/datasets/pranavchandane/scut-fbp5500-v2-facial-beauty-scores). Training and experimentation were conducted in Google Colab (the notebook is included in this repository).  
 - **Web Application**: Designed a lightweight frontend with **HTML**, **CSS**, and **JavaScript**.  
 - **Deployment**: Containerized the application with **Docker** and deployed it on **AWS Elastic Container Service (ECS)** for scalable hosting.  
 
